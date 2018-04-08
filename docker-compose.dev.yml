@@ -1,0 +1,9 @@
+version: '3.4'
+services:
+  ig:
+    command:
+      - run_dev
+    volumes: 
+      - .:/var/www/app
+    stdin_open: true
+    tty: true

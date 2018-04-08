@@ -1,0 +1,43 @@
+version: '3.4'
+x-env-files: &env-files
+  env_file:
+    - .env.default
+    - .env
+
+services:
+  ig:
+    container_name: ig
+    restart: always
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - ig_db
+      - ig_redis
+    command:
+      - run
+    <<: *env-files
+
+  ig_db:
+    container_name: ig_db
+    image: postgres:latest
+    volumes:
+      - ig-db:/var/lib/postgresql/data
+    <<: *env-files
+
+  ig_redis:
+    container_name: ig_redis
+    image: redis:latest
+    volumes:
+      - ig-redis:/data
+    command: ["redis-server", "--appendonly", "yes"]
+
+
+
+volumes:
+  ig-db:
+    driver: local
+  ig-redis:
+    driver: local
+
+

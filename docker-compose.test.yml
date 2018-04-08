@@ -1,0 +1,15 @@
+version: '3.4'
+x-environment: &environment
+  environment:
+    - POSTGRES_DB=test_pg_host
+    - TESTING=1
+    - SERVER_NAME=127.0.0.1:5000
+
+services:
+  ig:
+    command:
+      - run_tests
+    <<: *environment
+
+  ig_db:
+    <<: *environment

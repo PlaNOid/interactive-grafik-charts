@@ -1,0 +1,25 @@
+import os
+
+SESSION_COOKIE_NAME = 'session'
+SESSION_COOKIE_PATH = '/'
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+WTF_CSRF_ENABLED = False
+UPLOAD_DIR = 'static/upload'
+
+SENTRY_DSN = os.environ.get("SENTRY_DSN")
+
+
+
+POSTGRES_USER = os.environ.get("POSTGRES_USER")
+POSTGRES_PASSWORD = os.environ.get("POSTGRES_PASSWORD")
+POSTGRES_DB = os.environ.get("POSTGRES_DB")
+POSTGRES_HOST = os.environ.get("POSTGRES_HOST")
+POSTGRES_PORT = os.environ.get("POSTGRES_PORT")
+SQLALCHEMY_DATABASE_URI = f'postgresql+psycopg2://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}' 
+
+SERVER_NAME = os.environ.get("SERVER_NAME")
+SECRET_KEY = os.environ.get("SECRET_KEY")
+
+
+
+
