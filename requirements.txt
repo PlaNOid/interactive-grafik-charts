@@ -1,6 +1,7 @@
 voluptuous
 Flask
 SQLAlchemy
+SQLAlchemy-serializer
 Flask-SQLAlchemy
 Flask-Migrate
 ujson
