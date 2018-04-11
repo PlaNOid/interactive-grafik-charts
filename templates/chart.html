@@ -6,9 +6,45 @@
     <script src="/static/extensions/Chart.min.js"></script>
 </head>
 <body>
-    <h1>Простой график</h1>
-    <canvas id="myChart" width="800" height="600"></canvas>
-    <p id="caption">Отображение простого линейного графика</p>
+    <div class="chart-container">
+        <h1>{{ chart_name }}</h1>
+        <canvas id="myChart" width="800" height="600"></canvas>
+        <p id="caption">Отображение простого линейного графика</p>
+        {% for p in points_list %}
+            <form action="/charts/point/" method="POST">
+                    <input type="hidden" name="point_id" value="{{ p[0] }}">
+                    <label>{{ p[1] }}</label>
+                    <input type="text" name="point_y" value="{{ p[2] }}"/>
+                    <button type="submit">Обновить значение</button>
+            </form>
+        {% endfor %}
+
+        {{ points_list }}
+    </div>
+    <div class="form-container">
+        <h3>Добавление графика</h3>
+        <form action="/charts/" method="POST">
+            <label>Время</label>
+            <select name="fmt">
+                <option value="%d-%m-%Y %H-%M">По сменам</option>
+                <option value="%B-%Y">По месяцам</option>
+            </select>
+            <label>Название:</label>
+            <input name="chart_name" type="text"/>
+            <label>Легенда:</label>
+            <input name="chart_legend" type="text"/>
+            <button type="submit">Создать</button>
+        </form>
+    </div>
+    <div class="form-container">
+        <h3>Добавить точку на график {{ chart_name }}</h3>
+        <form action="/charts/" method="POST">
+            <input type="hidden" name="chart_name" value="{{ chart_name }}">
+            <label>Колличество</label>
+            <input type="text" name="point_y"/>
+            <button type="submit">Добавить</button>
+        </form>
+    </div>
     <script>
         Chart.defaults.global.responsive = false;
 

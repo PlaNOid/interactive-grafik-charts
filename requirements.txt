@@ -17,3 +17,4 @@ pgcli
 redis
 gunicorn
 ipdb
+pytz

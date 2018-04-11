@@ -1,10 +1,15 @@
 from flask import Blueprint, render_template
+from flask_builder import db
+from app.charts.models import Chart
+
 
 mod = Blueprint('root', __name__)
 
 
 @mod.route('/')
 def root_view():
+    c = Chart.query.all()
+
     return render_template('base.html')
 
 

@@ -8,10 +8,13 @@ class Chart(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
 
-    name = db.Column(db.String(255), nullable=False)
+    name = db.Column(db.String(255), nullable=False, unique=True)
+    legend = db.Column(db.String(255), nullable=True)
+    date_format = db.Column(db.String(255), nullable=True)
     points = db.relationship('Point')
+
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow)
+
 
 
 class Point(db.Model, SerializerMixin):
@@ -20,6 +23,9 @@ class Point(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     chart_id = db.Column(db.Integer, db.ForeignKey('chart.id'))
 
-    x_coord = db.Column(db.Integer, nullable=False)
-    y_coord = db.Column(db.Integer, nullable=False)
+    x_coord = db.Column(db.String(64), nullable=False)
+    y_coord = db.Column(db.String(64), nullable=False)
+
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow)
 

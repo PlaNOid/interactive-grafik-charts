@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 6935ebded513
+Revision ID: 6e4aade18c7b
 Revises: 
-Create Date: 2018-04-10 09:58:58.285071
+Create Date: 2018-04-10 12:55:32.032010
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '6935ebded513'
+revision = '6e4aade18c7b'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -23,13 +23,16 @@ def upgrade():
     sa.Column('name', sa.String(length=255), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
-    sa.PrimaryKeyConstraint('id')
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('name')
     )
     op.create_table('point',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('chart_id', sa.Integer(), nullable=True),
-    sa.Column('x_coord', sa.Integer(), nullable=False),
-    sa.Column('y_coord', sa.Integer(), nullable=False),
+    sa.Column('x_coord', sa.String(length=64), nullable=False),
+    sa.Column('y_coord', sa.String(length=64), nullable=False),
+    sa.Column('created_at', sa.DateTime(), nullable=True),
+    sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['chart_id'], ['chart.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
