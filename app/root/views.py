@@ -8,9 +8,8 @@ mod = Blueprint('root', __name__)
 
 @mod.route('/')
 def root_view():
-    c = Chart.query.all()
-
-    return render_template('base.html')
+    c = Chart.query
+    return render_template('base.html', charts=c)
 
 
 @mod.route('/simple_chart')

@@ -5,6 +5,25 @@
     <title>Title</title>
 </head>
 <body>
-    Hello my graphs app
+     <div class="form-container">
+        <h3>Добавление графика</h3>
+        <form action="/charts/" method="POST">
+            <label>Время</label>
+            <select name="fmt">
+                <option value="%d-%m-%Y %H-%M">По сменам</option>
+                <option value="%B-%Y">По месяцам</option>
+            </select>
+            <label>Название:</label>
+            <input name="chart_name" type="text"/>
+            <label>Легенда:</label>
+            <input name="chart_legend" type="text"/>
+            <button type="submit">Создать</button>
+        </form>
+    </div>
+    <div class="chart-links">
+        {% for c in charts %}
+            <a href="/charts/show/{{ c.id }}">{{ c.name }}</a>
+        {% endfor %}
+    </div>
 </body>
 </html>
