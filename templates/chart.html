@@ -6,11 +6,15 @@
     <script src="/static/extensions/Chart.min.js"></script>
 </head>
 <body>
+    <a href="/">Главная страница</a>
+    <form action="/charts/{{ chart_id }}" method="POST">
+        <button type="submit">Удалить график</button>
+    </form>
     <div class="chart-container">
         <h1>{{ chart_name }}</h1>
         <canvas id="myChart" width="800" height="600"></canvas>
         <p id="caption">Тут можно типа написать рассказ о графике=)</p>
-        <h2>Точки спсиком для редактирования</h2>
+        <h2>Точки спиcком для редактирования</h2>
         {% for p in points_list %}
             <form action="/charts/point/" method="POST">
                     <input type="hidden" name="point_id" value="{{ p[0] }}">

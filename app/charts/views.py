@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, url_for, redirect
 from flask_builder import db
 from .models import Chart, Point
 from lib.utils import ujsonify, dataschema
@@ -41,7 +41,7 @@ def add_view(chart_name, fmt='%d-%m-%Y %H:%M', chart_legend='', point_y=None):
         except IntegrityError:
             db.session.rollback()
             return 'this chart name is already exist'
-    return ujsonify(**c.to_dict())
+    return redirect('/charts/show/'+str(c.id))
 
 
 @mod.route('/point/', methods=['POST'])
@@ -55,15 +55,15 @@ def update_view(point_id, point_y):
     p.y_coord = point_y
     db.session.add(p)
     db.session.commit()
-    return 'ok'
+    return redirect('/charts/show/'+str(p.chart_id))
 
 
-@mod.route('/<int:chart_id>', methods=['DELETE'])
+@mod.route('/<int:chart_id>', methods=['POST'])
 def delete_view(chart_id):
     c = Chart.query.filter_by(id=chart_id).first_or_404()
     db.session.delete(c)
     db.session.commit()
-    return ujsonify(**c.to_dict())
+    return redirect(url_for('root.root_view'))
 
 
 @mod.route('/show/<int:chart_id>')
@@ -87,4 +87,5 @@ def build_view(chart_id):
         legend=c.legend,
         points=coord_dict,
         points_list=points_list,
+        chart_id=c.id
     )

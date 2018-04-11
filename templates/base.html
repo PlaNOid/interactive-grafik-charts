@@ -10,8 +10,8 @@
         <form action="/charts/" method="POST">
             <label>Время</label>
             <select name="fmt">
-                <option value="%d-%m-%Y %H-%M">По сменам</option>
-                <option value="%B-%Y">По месяцам</option>
+                <option value="%d-%m-%Y %H-%M">По дате и времени</option>
+                <option value="%B-%Y">По месяцам и году</option>
             </select>
             <label>Название:</label>
             <input name="chart_name" type="text"/>
@@ -21,6 +21,7 @@
         </form>
     </div>
     <div class="chart-links">
+        <p>созданные графики</p>
         {% for c in charts %}
             <a href="/charts/show/{{ c.id }}">{{ c.name }}</a>
         {% endfor %}
