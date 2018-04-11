@@ -11,10 +11,9 @@ class Chart(db.Model, SerializerMixin):
     name = db.Column(db.String(255), nullable=False, unique=True)
     legend = db.Column(db.String(255), nullable=True)
     date_format = db.Column(db.String(255), nullable=True)
-    points = db.relationship('Point')
+    points = db.relationship('Point', order_by='Point.id')
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-
 
 
 class Point(db.Model, SerializerMixin):
